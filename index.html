@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ruchiranga Renuka — Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0d;
+      --surface:  #141414;
+      --border:   #222222;
+      --muted:    #555;
+      --text:     #e8e8e8;
+      --dim:      #999;
+      --accent:   #7c6fff;
+      --accent2:  #4fd1c5;
+      --mono:     'JetBrains Mono', monospace;
+      --sans:     'Space Grotesk', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid-bg {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.35;
+      mask-image: radial-gradient(ellipse 80% 60% at 60% 50%, black 30%, transparent 100%);
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.2rem;
+    }
+    .hero-name span {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--dim);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.75;
+    }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      padding: 0.75rem 1.75rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-outline {
+      padding: 0.75rem 1.75rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 4rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    .scroll-line {
+      width: 40px; height: 1px; background: var(--muted);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 7rem 4rem; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .section-rule {
+      width: 48px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      margin-bottom: 3rem;
+      border-radius: 2px;
+    }
+
+    /* ─── ABOUT ─── */
+    #about { border-top: 1px solid var(--border); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--dim);
+      line-height: 1.85;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+    .about-text p strong { color: var(--text); font-weight: 600; }
+    .about-meta { display: flex; flex-direction: column; gap: 1.25rem; }
+    .meta-item {
+      padding: 1.25rem 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .meta-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.35rem;
+    }
+    .meta-value { font-size: 0.95rem; color: var(--text); font-weight: 500; }
+
+    /* ─── SKILLS ─── */
+    #skills { background: var(--surface); border-top: 1px solid var(--border); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .skill-card {
+      padding: 1.5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skill-cat {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent2);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .skill-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--dim);
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+    }
+
+    /* ─── PROJECTS ─── */
+    #projects { border-top: 1px solid var(--border); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .project-header {
+      padding: 1.5rem 1.5rem 0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .project-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+    .project-links { display: flex; gap: 0.75rem; }
+    .project-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .project-links a:hover { color: var(--accent); }
+    .project-body { padding: 1.25rem 1.5rem; flex: 1; }
+    .project-body h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .project-body p { font-size: 0.88rem; color: var(--dim); line-height: 1.7; }
+    .project-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .project-footer .tag { font-size: 0.68rem; }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--surface); border-top: 1px solid var(--border); }
+    .contact-inner { max-width: 560px; }
+    .contact-inner p { color: var(--dim); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1.25rem;
+      padding: 1.1rem 1.5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-link-icon {
+      font-size: 1rem;
+      width: 32px; text-align: center;
+      color: var(--accent);
+    }
+    .contact-link span { flex: 1; }
+    .contact-link-arrow { color: var(--muted); font-size: 0.8rem; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    /* ─── FADE IN ─── */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.25rem; }
+      #hero, section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .hero-scroll { left: 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { opacity: 1; transform: none; transition: none; }
+      .scroll-line { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">rr.dev</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <p class="hero-eyebrow fade-in">Full Stack Developer & IT Enthusiast</p>
+    <h1 class="hero-name fade-in">
+      Building things<br>for the <span>web.</span>
+    </h1>
+    <p class="hero-sub fade-in">
+      I'm <strong>Ruchiranga Renuka</strong>, a developer from Sri Lanka focused on crafting clean, functional software — from web apps to machine learning tools.
+    </p>
+    <div class="hero-ctas fade-in">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      scroll to explore
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label fade-in">About</p>
+    <h2 class="section-title fade-in">Who I am</h2>
+    <div class="section-rule fade-in"></div>
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p>I'm an IT student based in <strong>Sri Lanka</strong>, building practical projects across full stack web development and machine learning. I enjoy turning ideas into working software that people can actually use.</p>
+        <p>My recent work spans a <strong>Steam game recommender</strong> built with Python and scikit-learn, a <strong>password strength checker</strong>, and a travel webapp — each published on GitHub as real, usable tools.</p>
+        <p>I'm actively growing my developer presence and looking for opportunities to collaborate, contribute, and keep shipping.</p>
+      </div>
+      <div class="about-meta fade-in">
+        <div class="meta-item">
+          <div class="meta-label">Location</div>
+          <div class="meta-value">Sri Lanka 🇱🇰</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Currently</div>
+          <div class="meta-value">IT Student · Building & Shipping</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">GitHub</div>
+          <div class="meta-value">Ruchiranga-Renuka</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Focus areas</div>
+          <div class="meta-value">Full Stack · ML · Python</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label fade-in">Skills</p>
+    <h2 class="section-title fade-in">What I work with</h2>
+    <div class="section-rule fade-in"></div>
+    <div class="skills-grid">
+      <div class="skill-card fade-in">
+        <div class="skill-cat">Frontend</div>
+        <h3>Web Development</h3>
+        <div class="skill-tags">
+          <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Responsive Design</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-cat">Backend</div>
+        <h3>Server & Scripting</h3>
+        <div class="skill-tags">
+          <span class="tag">Python</span><span class="tag">Streamlit</span><span class="tag">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-cat">Machine Learning</div>
+        <h3>Data & AI</h3>
+        <div class="skill-tags">
+          <span class="tag">scikit-learn</span><span class="tag">pandas</span><span class="tag">Decision Trees</span><span class="tag">K-Means</span><span class="tag">Neural Networks</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-cat">Tooling</div>
+        <h3>Dev Tools</h3>
+        <div class="skill-tags">
+          <span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">VS Code</span><span class="tag">GitHub Pages</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label fade-in">Projects</p>
+    <h2 class="section-title fade-in">Things I've built</h2>
+    <div class="section-rule fade-in"></div>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-icon">🎮</div>
+          <div class="project-links">
+            <a href="https://github.com/Ruchiranga-Renuka/game-recommender" target="_blank">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="project-body">
+          <h3>Steam Game Recommender</h3>
+          <p>Content-based game recommendation engine built with Python and scikit-learn. Takes a game you like and surfaces similar titles from the Steam catalogue.</p>
+        </div>
+        <div class="project-footer">
+          <span class="tag">Python</span><span class="tag">pandas</span><span class="tag">scikit-learn</span><span class="tag">Streamlit</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-icon">🔐</div>
+          <div class="project-links">
+            <a href="https://github.com/Ruchiranga-Renuka/passfort" target="_blank">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="project-body">
+          <h3>PassFort</h3>
+          <p>Password strength checker available as both a terminal CLI and a Tkinter GUI. Built with only Python built-ins — no external dependencies.</p>
+        </div>
+        <div class="project-footer">
+          <span class="tag">Python</span><span class="tag">Tkinter</span><span class="tag">CLI</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-icon">✈️</div>
+          <div class="project-links">
+            <a href="https://github.com/Ruchiranga-Renuka/wanderpage" target="_blank">GitHub ↗</a>
+          </div>
+        </div>
+        <div class="project-body">
+          <h3>WanderPage</h3>
+          <p>A clean travel webapp with destination cards, a hero section, navigation, and a contact form. Built from scratch in HTML and CSS.</p>
+        </div>
+        <div class="project-footer">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label fade-in">Contact</p>
+    <h2 class="section-title fade-in">Let's connect</h2>
+    <div class="section-rule fade-in"></div>
+    <div class="contact-inner fade-in">
+      <p>I'm open to collaborations, internships, and interesting projects. Reach out through any of the channels below.</p>
+      <div class="contact-links">
+        <a href="https://github.com/Ruchiranga-Renuka" target="_blank" class="contact-link">
+          <span class="contact-link-icon">⌥</span>
+          <span>github.com/Ruchiranga-Renuka</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/ruchiranga-renuka" target="_blank" class="contact-link">
+          <span class="contact-link-icon">in</span>
+          <span>LinkedIn — Ruchiranga Renuka</span>
+          <span class="contact-link-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Ruchiranga Renuka</span>
+    <span>Built with HTML · CSS · JS</span>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
