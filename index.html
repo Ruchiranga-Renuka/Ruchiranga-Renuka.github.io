@@ -88,12 +88,43 @@
       font-weight: 700;
       line-height: 1.05;
       letter-spacing: -0.03em;
-      margin-bottom: 1.2rem;
+      margin-bottom: 0.75rem;
     }
     .hero-name span {
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+    .hero-title-rotator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.1rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      border-radius: 18px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.18);
+      margin-bottom: 1.5rem;
+      max-width: fit-content;
+    }
+    .hero-title-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      white-space: nowrap;
+    }
+    .hero-role {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 700;
+      color: var(--accent2);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+    .hero-role.visible {
+      opacity: 1;
     }
     .hero-sub {
       font-size: 1.05rem;
@@ -352,9 +383,10 @@
     <h1 class="hero-name fade-in">
       I am <strong>Ruchiranga Renuka</strong>
     </h1>
-    <p class="hero-sub fade-in">
-      I'm a developer from Sri Lanka focused on crafting clean, functional software — from web apps to machine learning tools.
-    </p>
+    <div class="hero-title-rotator fade-in">
+      <span class="hero-title-label">Role</span>
+      <span id="heroRole" class="hero-role">UI/UX Designer</span>
+    </div>
     <div class="hero-ctas fade-in">
       <a href="#projects" class="btn-primary">View Projects</a>
       <a href="#contact" class="btn-outline">Get in Touch</a>
@@ -372,7 +404,7 @@
     <div class="section-rule fade-in"></div>
     <div class="about-grid">
       <div class="about-text fade-in">
-        <p>I am an IT student based in <strong>Sri Lanka</strong>, building practical projects across full stack web development and machine learning. I enjoy turning ideas into working software that people can actually use.</p>
+        <p>I am an undergraduate pursuing a BSc (Hons) in Information Technology, specializing in Information Technology at Sri Lanka Institute of Information Technology (SLIIT), Malabe. Passionate about Full-Stack development, Mobile app development, AI integrations and chatbots, and emerging technologies, I am a quick learner who thrives in collaborative projects. Eager to contribute to innovative solutions, I actively seek opportunities to connect and grow in the tech industry.</p>
         <p>My recent work spans a <strong>Steam game recommender</strong> built with Python and scikit-learn, a <strong>password strength checker</strong>, and a travel webapp — each published on GitHub as real, usable tools.</p>
         <p>I'm actively growing my developer presence and looking for opportunities to collaborate, contribute, and keep shipping.</p>
       </div>
@@ -575,6 +607,31 @@
       { threshold: 0.12 }
     );
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    const heroRole = document.getElementById('heroRole');
+    const heroTitles = [
+      'UI/UX Designer',
+      'Java Developer',
+      'Full Stack Developer',
+      'Spring Boot Developer',
+      'Web Developer',
+      'Mobile App Developer'
+    ];
+    let heroIndex = 0;
+
+    const rotateHeroTitle = () => {
+      heroRole.classList.remove('visible');
+      setTimeout(() => {
+        heroRole.textContent = heroTitles[heroIndex];
+        heroRole.classList.add('visible');
+        heroIndex = (heroIndex + 1) % heroTitles.length;
+      }, 300);
+    };
+
+    setTimeout(() => {
+      heroRole.classList.add('visible');
+      setInterval(rotateHeroTitle, 2800);
+    }, 200);
   </script>
 
 </body>
